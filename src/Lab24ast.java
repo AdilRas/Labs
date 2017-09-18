@@ -33,6 +33,7 @@ class RegPoly {
 	private int centerX, centerY;
 	private int radius = 60;
 	private int numPoints;
+	//im cool
 
 	public RegPoly(int centerX, int centerY, int radius, int numPoints) {
 		this.centerX = centerX;
