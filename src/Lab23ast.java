@@ -1,8 +1,5 @@
 // Lab23ast.java
 // This is the starting version of the "Perfect Number" program.
-
-import sun.reflect.generics.tree.Tree;
-
 import java.util.*;
 
 public class Lab23ast {
@@ -44,8 +41,21 @@ public class Lab23ast {
 	}
 
 	public static String getInput() {
-		System.out.print("Enter an integer in [2..10000] range ===>> ");
-		return sc.nextLine();
+		boolean badInput = false;
+		String input = "";
+		do {
+			System.out.print("Enter an integer in [2..10000] range ===>> ");
+			input = sc.nextLine();
+			try {
+				Integer.parseInt(input);
+				if(Integer.parseInt(input) > 10000 || Integer.parseInt(input) < 2) throw new ArithmeticException();
+				badInput = true;
+			} catch(Exception e) {
+				System.out.println("Invalid input: \'" + input + "\'");
+				badInput = false;
+			}
+		} while(!badInput);
+		return input;
 	}
 
 }
