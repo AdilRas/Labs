@@ -17,7 +17,7 @@ class Knight {
 		private boolean[][] visited = new boolean[12][12];
         private int board[][];			// stores the sequence of knight moves
         private int startRow, startCol, row, col, moves;
-	    final private int ACCESS[][] = {
+        private int ACCESS[][] = {
 	                                {0,0,0,0,0,0,0,0,0,0,0,0},
  						 			{0,0,0,0,0,0,0,0,0,0,0,0},
      					 			{0,0,2,3,4,4,4,4,3,2,0,0},
@@ -91,8 +91,9 @@ class Knight {
 				int largest = 9;
 
 				int dx = 2, dy = 1;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						//System.out.println(smallest);
 						moveX = col + dx;
@@ -102,8 +103,9 @@ class Knight {
 				}
 				dx = 2;
 				dy = -1;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						moveX = col + dx;
 						moveY = row + dy;
@@ -112,8 +114,9 @@ class Knight {
 				}
 				dx = 1;
 				dy = 2;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0 ) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						//System.out.println(smallest);
 						moveX = col + dx;
@@ -123,8 +126,9 @@ class Knight {
 				}
 				dx = 1;
 				dy = -2;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						//System.out.println(smallest);
 						moveX = col + dx;
@@ -134,8 +138,9 @@ class Knight {
 				}
 				dx = -1;
 				dy = 2;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						//System.out.println(smallest);
 						moveX = col + dx;
@@ -145,8 +150,9 @@ class Knight {
 				}
 				dx = -1;
 				dy = -2;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+					if (ACCESS[row + dy][col + dx] < largest&& !visited[row + dy][col + dx]) {
+                        ACCESS[row + dy][col + dx]--;
 						largest = ACCESS[row + dy][col + dx];
 						moveX = col + dx;
 						moveY = row + dy;
@@ -156,8 +162,9 @@ class Knight {
 				}
 				dx = -2;
 				dy = 1;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+                    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest  && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						//System.out.println(smallest);
 						moveX = col + dx;
@@ -167,8 +174,9 @@ class Knight {
 				}
 				dx = -2;
 				dy = -1;
-				if (ACCESS[row + dy][col + dx] != 0 && !visited[row + dy][col + dx]) {
-					if (ACCESS[row + dy][col + dx] < largest) {
+				if (ACCESS[row + dy][col + dx] != 0) {
+				    ACCESS[row + dy][col + dx]--;
+					if (ACCESS[row + dy][col + dx] < largest  && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
 						moveX = col + dx;
 						moveY = row + dy;
