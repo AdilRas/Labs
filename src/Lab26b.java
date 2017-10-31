@@ -130,7 +130,7 @@ class Knight {
                     ACCESS[row + dy][col + dx]--;
 					if (ACCESS[row + dy][col + dx] < largest && !visited[row + dy][col + dx]) {
 						largest = ACCESS[row + dy][col + dx];
-						//System.out.println(smallest);
+						//System.out.println(largest);
 						moveX = col + dx;
 						moveY = row + dy;
 						canMove = true;
@@ -156,7 +156,6 @@ class Knight {
 						largest = ACCESS[row + dy][col + dx];
 						moveX = col + dx;
 						moveY = row + dy;
-						//System.out.println(smallest);
 						canMove = true;
 					}
 				}
