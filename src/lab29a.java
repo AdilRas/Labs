@@ -31,8 +31,8 @@ class Maze
 	private char mat[][];				// 2d character array that stores the maze display
 	private Coord currentMove;		// object that stores current maze position
 	private Stack <Coord>visitStack;			// stack that stores location that have been visited
-	private Stack <Coord> junction;
-
+	private Stack <Coord> junction; private HashMap<Coord,Stack<Coord>> access = new HashMap<>();
+	public Stack<Coord> possMovesHash = new Stack<>();
 	class Coord
 			// Coord is a class that stores a single maze location.
 	{
@@ -97,10 +97,24 @@ class Maze
 	// is found or it is determined that there is no way out off the maze.
 	{
 		System.out.println("\n>>>>>   WORKING  ....  SOLVING MAZE   <<<<<\n");
-
+			anirudh:
 			while(getMove()){
 
 			}
+			if(!junction.isEmpty()){
+				currentMove= junction.pop();
+
+				while(!possMovesHash.isEmpty()){
+					Coord newCoord = possMovesHash.pop();
+					mat[newCoord.rPos][newCoord.cPos] = '.';
+					currentMove= newCoord;
+					while(getMove()){
+
+					}
+				}
+
+			}
+
 
 	}
 
@@ -108,7 +122,7 @@ class Maze
 	public void mazeSolution()
 	// Short method to display the result of the maze solution
 	{
-		if (currentMove.isFree())
+		if (mat[0][0] == '.')
 			System.out.println("\nTHE MAZE HAS A SOLUTION.\n");
 		else
 			System.out.println("\nTHE MAZE HAS NO SOLUTION.\n");
@@ -185,8 +199,22 @@ class Maze
 		if(size> 1){
 			junction.add(new Coord(currentMove.rPos,currentMove.cPos));
 		}
-		
-		currentMove= possMoves.pop();
+		Coord p = possMoves.pop();
+		Stack <Coord >temp  = new Stack<>();
+		Stack <Coord >newIce= new Stack<>();
+		while(!possMoves.isEmpty()){
+			Coord rdn = possMoves.pop();
+			temp.push(rdn);
+		}
+		while(!temp.isEmpty()){
+			Coord hi = temp.pop();
+			possMoves.push(hi);
+			possMovesHash.push(hi);
+		}
+
+		access.put(currentMove,possMovesHash);
+
+		currentMove= p;
 		mat[currentMove.rPos][currentMove.cPos]='.';
 		return true;
 	}
@@ -197,6 +225,20 @@ class Maze
 		String dummy;
 		System.out.print("\nPress <Enter> to continue  ===>>  ");
 		dummy = input.nextLine();
+	}
+	public Stack<Coord> getNewStack(Stack <Coord>s){
+		Stack <Coord >temp  = new Stack<>();
+		Stack <Coord >newIce= new Stack<>();
+		while(!s.isEmpty()){
+			Coord rdn = s.pop();
+			temp.push(rdn);
+		}
+		while(!temp.isEmpty()){
+			Coord hi = temp.pop();
+			newIce.push(hi);
+			s.push(hi);
+		}
+		return newIce;
 	}
 
 
