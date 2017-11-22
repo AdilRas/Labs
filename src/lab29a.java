@@ -23,7 +23,7 @@ public class lab29a
 		maze.mazeSolution();
 	}
 }
-
+ 
 
 class Maze
 {
