@@ -184,7 +184,7 @@ class Maze
 			possMoves.push(i);
 		}
 		//END REVERSE
-		if(size>0){
+		if(size>1){
 			junction.add(new Coord(currentMove.rPos,currentMove.cPos));
 		}
 
