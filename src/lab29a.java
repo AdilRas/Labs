@@ -39,7 +39,7 @@ class Maze
 		private int rPos;
 		private int cPos;
 		public Coord (int r, int c) 		{ rPos = r; cPos = c; }
-		public boolean isFree() 			{ return (rPos == 0 && cPos == 0); }
+		public boolean isFree() 			{ return (mat[0][0]=='.'); }
 		public void setPos(int r, int c) 	{ rPos+= r; cPos+= c; }
 	}
 
@@ -97,7 +97,6 @@ class Maze
 	// is found or it is determined that there is no way out off the maze.
 	{
 		System.out.println("\n>>>>>   WORKING  ....  SOLVING MAZE   <<<<<\n");
-			anirudh:
 			while(getMove()){
 
 			}
@@ -122,13 +121,13 @@ class Maze
 	public void mazeSolution()
 	// Short method to display the result of the maze solution
 	{
-		if (mat[0][0] == '.')
+		if (currentMove.isFree())
 			System.out.println("\nTHE MAZE HAS A SOLUTION.\n");
 		else
 			System.out.println("\nTHE MAZE HAS NO SOLUTION.\n");
 	}
 
- 
+
 	private boolean inBounds(int r, int c)
 	// This method determines if a coordinate position is inbounds or not
 	{
