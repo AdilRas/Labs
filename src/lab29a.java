@@ -97,16 +97,11 @@ class Maze
 	// is found or it is determined that there is no way out off the maze.
 	{
 		System.out.println("\n>>>>>   WORKING  ....  SOLVING MAZE   <<<<<\n");
-		getMove();
-		Stack <Coord> temp = new <Coord>Stack();
-		while(!junction.isEmpty()){
-			Coord rdn = junction.pop();
-			System.out.println(rdn.rPos + " " + rdn.cPos);
-			temp.push(rdn);
-		}
-		while(!temp.isEmpty()){
-			junction.push(temp.pop());
-		}
+
+			while(getMove()){
+
+			}
+
 	}
 
 
@@ -184,13 +179,16 @@ class Maze
 			possMoves.push(i);
 		}
 		//END REVERSE
+		if(possMoves.isEmpty()){
+			return false;
+		}
 		if(size> 1){
 			junction.add(new Coord(currentMove.rPos,currentMove.cPos));
 		}
-
+		
 		currentMove= possMoves.pop();
 		mat[currentMove.rPos][currentMove.cPos]='.';
-		return false;
+		return true;
 	}
 
 	private void pause()
