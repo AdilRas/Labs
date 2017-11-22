@@ -128,7 +128,7 @@ class Maze
 			System.out.println("\nTHE MAZE HAS NO SOLUTION.\n");
 	}
 
-
+ 
 	private boolean inBounds(int r, int c)
 	// This method determines if a coordinate position is inbounds or not
 	{
