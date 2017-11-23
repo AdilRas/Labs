@@ -23,7 +23,7 @@ public class lab29a
 		maze.mazeSolution();
 	}
 }
- 
+
 
 class Maze
 {
@@ -83,7 +83,21 @@ class Maze
 		for (int r = 0; r < 12; r++)
 		{
 			for (int c = 0; c < 12; c++)
-				System.out.print(mat[r][c] + "  ");
+				if(mat[r][c]=='O'){
+					final String ANSI_BLACK = "\u001B[30m";
+					final String ANSI_RESET = "\u001B[0m";
+					System.out.print(ANSI_BLACK+mat[r][c] + " "+ANSI_RESET);
+				}else if(mat[r][c]=='X'){
+					final String ANSI_RED = "\u001B[31m";
+					final String ANSI_RESET = "\u001B[0m";
+					System.out.print(ANSI_RED + mat[r][c] +" "+ ANSI_RESET);
+				}else{
+					final String ANSI_GREEN = "\u001B[32m";
+					final String ANSI_RESET = "\u001B[0m";
+					System.out.print(ANSI_GREEN + mat[r][c] +" "+  ANSI_RESET);
+				}
+
+
 			System.out.println();
 		}
 		System.out.println();
@@ -97,10 +111,10 @@ class Maze
 	// is found or it is determined that there is no way out off the maze.
 	{
 		System.out.println("\n>>>>>   WORKING  ....  SOLVING MAZE   <<<<<\n");
-			while(getMove()){
+			while(mat[0][0]!='.' && getMove()){
 
 			}
-			if(!junction.isEmpty()){
+			if(mat[0][0]!= '.'&& !junction.isEmpty()){
 				currentMove= junction.pop();
 
 				while(!possMovesHash.isEmpty()){
@@ -225,20 +239,7 @@ class Maze
 		System.out.print("\nPress <Enter> to continue  ===>>  ");
 		dummy = input.nextLine();
 	}
-	public Stack<Coord> getNewStack(Stack <Coord>s){
-		Stack <Coord >temp  = new Stack<>();
-		Stack <Coord >newIce= new Stack<>();
-		while(!s.isEmpty()){
-			Coord rdn = s.pop();
-			temp.push(rdn);
-		}
-		while(!temp.isEmpty()){
-			Coord hi = temp.pop();
-			newIce.push(hi);
-			s.push(hi);
-		}
-		return newIce;
-	}
+
 
 
 }
