@@ -31,7 +31,6 @@ class Maze
 	private char mat[][];				// 2d character array that stores the maze display
 	private Coord currentMove;		// object that stores current maze position
 	private Stack <Coord>visitStack;			// stack that stores location that have been visited
-	private Stack <Coord> junction; private HashMap<Coord,Stack<Coord>> access = new HashMap<>();
 	public Stack<Coord> possMovesHash = new Stack<>();
 	class Coord
 			// Coord is a class that stores a single maze location.
@@ -70,7 +69,7 @@ class Maze
 		startRow = random.nextInt(12);
 		startCol = 11;
 		mat[startRow][startCol] = '.';
-		visitStack = new Stack<>(); junction = new Stack<>();
+		visitStack = new Stack<>();
 		currentMove = new Coord(startRow,startCol);
 		visitStack.push(currentMove);
 	}
@@ -102,6 +101,7 @@ class Maze
 		}
 		System.out.println();
 		pause();
+
 	}
 
 
@@ -114,8 +114,8 @@ class Maze
 			while(mat[0][0]!='.' && getMove()){
 
 			}
-			if(mat[0][0]!= '.'&& !junction.isEmpty()){
-				currentMove= junction.pop();
+			//if(mat[0][0]!= '.'&& !junction.isEmpty()){
+			//	currentMove= junction.pop();
 
 				while(!possMovesHash.isEmpty()){
 					Coord newCoord = possMovesHash.pop();
@@ -126,7 +126,7 @@ class Maze
 					}
 				}
 
-			}
+			//}
 
 
 	}
@@ -209,9 +209,7 @@ class Maze
 		if(possMoves.isEmpty()){
 			return false;
 		}
-		if(size> 1){
-			junction.add(new Coord(currentMove.rPos,currentMove.cPos));
-		}
+
 		Coord p = possMoves.pop();
 		Stack <Coord >temp  = new Stack<>();
 		Stack <Coord >newIce= new Stack<>();
@@ -225,7 +223,7 @@ class Maze
 			possMovesHash.push(hi);
 		}
 
-		access.put(currentMove,possMovesHash);
+
 
 		currentMove= p;
 		mat[currentMove.rPos][currentMove.cPos]='.';
