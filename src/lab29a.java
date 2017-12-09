@@ -114,9 +114,6 @@ class Maze
 			while(mat[0][0]!='.' && getMove()){
 
 			}
-			//if(mat[0][0]!= '.'&& !junction.isEmpty()){
-			//	currentMove= junction.pop();
-
 				while(!possMovesHash.isEmpty()){
 					Coord newCoord = possMovesHash.pop();
 					mat[newCoord.rPos][newCoord.cPos] = '.';
