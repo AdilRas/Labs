@@ -30,7 +30,6 @@ class Maze
 
 	private char mat[][];				// 2d character array that stores the maze display
 	private Coord currentMove;		// object that stores current maze position
-	private Stack <Coord>visitStack;			// stack that stores location that have been visited
 	public Stack<Coord> possMovesHash = new Stack<>();
 	class Coord
 			// Coord is a class that stores a single maze location.
@@ -38,8 +37,7 @@ class Maze
 		private int rPos;
 		private int cPos;
 		public Coord (int r, int c) 		{ rPos = r; cPos = c; }
-		public boolean isFree() 			{ return (mat[0][0]=='.'); }
-		public void setPos(int r, int c) 	{ rPos+= r; cPos+= c; }
+
 	}
 
 
@@ -69,9 +67,9 @@ class Maze
 		startRow = random.nextInt(12);
 		startCol = 11;
 		mat[startRow][startCol] = '.';
-		visitStack = new Stack<>();
+
 		currentMove = new Coord(startRow,startCol);
-		visitStack.push(currentMove);
+
 	}
 
 
@@ -115,24 +113,18 @@ class Maze
 
 			}
 				while(!possMovesHash.isEmpty()){
-					Coord newCoord = possMovesHash.pop();
-					mat[newCoord.rPos][newCoord.cPos] = '.';
-					currentMove= newCoord;
+					currentMove= possMovesHash.pop();
 					while(getMove()){
 
 					}
 				}
-
-			//}
-
-
 	}
 
 
 	public void mazeSolution()
 	// Short method to display the result of the maze solution
 	{
-		if (currentMove.isFree())
+		if (mat[0][0]=='.')
 			System.out.println("\nTHE MAZE HAS A SOLUTION.\n");
 		else
 			System.out.println("\nTHE MAZE HAS NO SOLUTION.\n");
@@ -192,47 +184,25 @@ class Maze
 			possMoves.add(new Coord(currentMove.rPos-1,currentMove.cPos-1));
 
 		}
-		//START REVERSE
-		int size=0;
-		ArrayList <Coord> nice = new ArrayList<>();
-		while(!possMoves.isEmpty()){
-			size++;
-			nice. add(possMoves.pop());
-		}
-		for(Coord i : nice){
-			possMoves.push(i);
-		}
-		//END REVERSE
 		if(possMoves.isEmpty()){
 			return false;
 		}
-
-		Coord p = possMoves.pop();
+		currentMove= possMoves.pop();
 		Stack <Coord >temp  = new Stack<>();
-		Stack <Coord >newIce= new Stack<>();
 		while(!possMoves.isEmpty()){
-			Coord rdn = possMoves.pop();
-			temp.push(rdn);
+			temp.push(possMoves.pop());
 		}
 		while(!temp.isEmpty()){
-			Coord hi = temp.pop();
-			possMoves.push(hi);
-			possMovesHash.push(hi);
+			possMovesHash.push(temp.pop());
 		}
-
-
-
-		currentMove= p;
-		mat[currentMove.rPos][currentMove.cPos]='.';
 		return true;
 	}
 
 	private void pause()
 	{
 		Scanner input = new Scanner(System.in);
-		String dummy;
 		System.out.print("\nPress <Enter> to continue  ===>>  ");
-		dummy = input.nextLine();
+		input.nextLine();
 	}
 
 
