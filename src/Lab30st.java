@@ -4,6 +4,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.applet.*;
+import java.util.Random;
 import javax.swing.JOptionPane;
 public class Lab30st
 {
@@ -91,7 +92,15 @@ class Circle
 	}
 	public void drawCircle(Graphics g)
 	{
-		g.setColor(Color.blue);
+		if(Math.random()*2!=1){
+			Color color;
+			Random random = new Random();
+			 float hue = random.nextFloat();
+			float saturation = 1.0f;
+			float luminance = 1.0f;
+			color = Color.getHSBColor(hue, saturation, luminance);
+			g.setColor(color);
+		}
 		g.drawOval(tlX,tlY,size,size);
 		delay(timeDelay);
 		if (addX)
