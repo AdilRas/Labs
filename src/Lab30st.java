@@ -43,9 +43,15 @@ class GfxApp extends Frame
 		int incY = 5;
 		int diameter = circleSize;
 		int timeDelay = 10;
+		Queue1<Coord> q = new Queue1<>();
 		Circle c = new Circle(g,diameter,incX,incY,timeDelay);
 		for (int k = 1; k <= circleCount; k++)
 		{
+			q.add(new Coord(c.getTlX(),c.getTlY()));
+			if(q.size()>=50){
+				Coord lmoa = q.remove();
+				c.eraseCircle(g,lmoa.xPos,lmoa.yPos);
+			}
 			c.drawCircle(g);
 			c.hitEdge();
 		}
@@ -130,4 +136,14 @@ class Circle
 		if (flag)
 			newData();
 	}
+	public void eraseCircle(Graphics g,int topx, int topy){
+		g.setColor(Color.WHITE);
+		int midx = (int)(topx + (size)*Math.sqrt(2));
+		int midy = (int)(topy - (size)*Math.sqrt(2));
+		g.drawOval(topx,topy,size,size);
+
+	}
+	public int getTlX(){return tlX;}
+	public int getTlY() {return tlY;};
+
 }
