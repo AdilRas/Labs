@@ -30,7 +30,7 @@ class Maze
 
 	private char mat[][];				// 2d character array that stores the maze display
 	private Coord currentMove;		// object that stores current maze position
-	public Stack<Coord> possMovesHash = new Stack<>();
+	private Stack<Coord> possMovesHash = new Stack<>();
 	class Coord
 			// Coord is a class that stores a single maze location.
 	{

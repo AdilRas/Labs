@@ -32,9 +32,9 @@ public class Lab24b {
 }
 
 class Gfx extends Frame {
-	Circle c;
+	Circle1 c;
 	public Gfx(int numCircles, int xInc, int yInc) {
-		c = new Circle(30, xInc, yInc, 20, numCircles);
+		c = new Circle1(30, xInc, yInc, 20, numCircles);
 	}
     public void paint(Graphics g) {
 		c.start(g);
@@ -43,10 +43,10 @@ class Gfx extends Frame {
 }
 
 //screen size = 1280, 720
-class Circle {
+class Circle1 {
     int size , incX,  incY, timeDelay, tlX, tlY, numCircles;
 
-    public Circle(int size, int incX, int incY, int timeDelay, int numCircles) {
+    public Circle1(int size, int incX, int incY, int timeDelay, int numCircles) {
         this.size = size;
         this.incX = incX;
         this.incY = incY;

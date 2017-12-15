@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class Lab24ast {
 
 	public static void main(String args[]) {
-		GfxApp gfx = new GfxApp();
+		GfxApp1 gfx = new GfxApp1();
 		gfx.setSize(1500,900);
 		gfx.addWindowListener(new WindowAdapter() {public void
 		windowClosing(WindowEvent e) {System.exit(0);}});
@@ -15,7 +15,7 @@ public class Lab24ast {
 
 	}
 }
-class GfxApp extends Frame {
+class GfxApp1 extends Frame {
 	public void paint(Graphics g) {
 		Scanner sc = new Scanner(System.in);
 		int checker = -1;
