@@ -103,7 +103,15 @@ class DoubleList {
 	}
       
     private void insert(Student2Node newStudent) {
-    	
+    	if(front == null) {
+    		front = newStudent;
+		} else if(newStudent.getGPA() < front.getGPA()) {
+    		newStudent.setForward(front);
+    		front = newStudent;
+		} else {
+    		Student2Node temp = front;
+    		
+		}
     	
     }
         	
