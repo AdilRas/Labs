@@ -3,7 +3,7 @@ package DoublyLinked;
 public class LNode {
     LNode next, previous;
     Object value;
-    public LNode(Object value, LNode next, LNode previous) {
+    public LNode(Object value, LNode next) {
         this.next = next;
         this.previous = previous;
         this.value = value;

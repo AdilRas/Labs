@@ -9,7 +9,7 @@ public class LLQueue {
         front = back = temp;
     }
     public void enqueue(Object item) {
-        temp = new LNode(item, null, null);
+        temp = new LNode(item, null);
         if(front == null) {
             front = back = temp;
         } else {
