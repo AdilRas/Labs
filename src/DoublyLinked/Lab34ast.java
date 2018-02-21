@@ -1,9 +1,11 @@
 package DoublyLinked;
 
+import javax.management.ListenerNotFoundException;
 import java.io.*;
 import java.util.*;
 import java.text.DecimalFormat;
-      
+import java.util.jar.JarEntry;
+
 public class Lab34ast {
 	public static void main(String args[]) throws IOException {
 		DoubleList studentList = new DoubleList();
@@ -103,14 +105,23 @@ class DoubleList {
 	}
       
     private void insert(Student2Node newStudent) {
+		Student2Node t1 = null, t2 = null;
     	if(front == null) {
-    		front = newStudent;
+    		front = back = newStudent;
 		} else if(newStudent.getGPA() < front.getGPA()) {
     		newStudent.setForward(front);
+    		front.setBack(newStudent);
     		front = newStudent;
 		} else {
-    		Student2Node temp = front;
-    		
+			t1 = front;
+			while(t1 != null && newStudent.getGPA() > t1.getGPA()) {
+				t2 = t1;
+				t1 = t1.getForward();
+			}
+			t2.setForward(newStudent);
+			newStudent.setForward(t1);
+			newStudent.setBack(t2);
+			if(t1 != null) t1.setBack(newStudent);
 		}
     	
     }
@@ -119,13 +130,19 @@ class DoubleList {
 		System.out.println("\nDISPLAYING ALL STUDENTS");
 		System.out.println("\nStudent ID#     Student Name            Age         GPA");
 		System.out.println("============================================================");
+		Student2Node t1 = back;
+		while(t1 != null) {
+			System.out.printf("%-16d%-23s%-12d %2.3f\n", t1.getID(), t1.getName(), t1.getAge(), t1.getGPA());
+			t1 = t1.getBack();
+		}
 	}	
 	
-	public void displayHonorRoll() {
+	public void displayHonorRoll() { //WIP
 		System.out.println("\nDISPLAYING HONOR ROLL STUDENTS");
 		System.out.println("\nStudent ID#     Student Name            Age         GPA");
 		System.out.println("============================================================");
-		     
+		Student2Node t1 = back;
+
 
 	}	   
 		
