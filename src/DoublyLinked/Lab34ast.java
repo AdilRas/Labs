@@ -1,42 +1,37 @@
 package DoublyLinked;
 
-import javax.management.ListenerNotFoundException;
+import java.io.IOException;
 import java.io.*;
 import java.util.*;
 import java.text.DecimalFormat;
-import java.util.jar.JarEntry;
 
 public class Lab34ast {
 	public static void main(String args[]) throws IOException {
 		DoubleList studentList = new DoubleList();
 		studentList.getList();
 		studentList.displayAll();
-		studentList.pause();
-		
+		//studentList.pause();
 		studentList.displayHonorRoll();
-		studentList.pause();
-		
+		//studentList.pause();
 		studentList.displayAcademicProbation();
-		studentList.pause();
+		//studentList.pause();
 		
-//		int studentID = getID();
-//		Student2Node nodeRef = studentList.search(studentID);
-//		
-//		if (nodeRef == null)
-//		    System.out.println("There is no student with an ID# of "+studentID+".\n");
-//		else {
-//			studentList.displayStudent(nodeRef);   // displays the information for the found student
-//			studentList.pause();			
-//			studentList.delete(nodeRef);           // remove the same student from the List
-//			studentList.displayAll();
-//			studentList.pause();
-//		}    
+		int studentID = getID();
+		Student2Node nodeRef = studentList.search(studentID);
+
+		if (nodeRef == null)
+		    System.out.println("There is no student with an ID# of "+studentID+".\n");
+		else {
+			studentList.displayStudent(nodeRef);
+			studentList.pause();
+			studentList.delete(nodeRef);
+			studentList.displayAll();
+		}
 	}
 	
-	public static int getID() {
-		Scanner input = new Scanner(System.in);	 
+	private static int getID() {
 		System.out.print("\nEnter the 6-digit ID of the student.  { 100000 - 999999 }  -->  ");
-		return input.nextInt();
+		return new Scanner(System.in).nextInt();
 	}
 }
 
@@ -48,7 +43,7 @@ class Student2Node {
 	private Student2Node forward;	
 	private Student2Node back;	
 	
-	public Student2Node (String n, int ID, int a, double g, Student2Node f, Student2Node b) {
+	Student2Node (String n, int ID, int a, double g, Student2Node f, Student2Node b) {
 		name    = n;
 		id      = ID;
 		age     = a;
@@ -57,31 +52,35 @@ class Student2Node {
 		back    = b;
 	}
 
-	public String getName ()					{ return name;		}
-	public int getID ()							{ return id;		}
-	public int getAge ()						{ return age;		}
-	public double getGPA ()						{ return gpa;		}
-	public Student2Node getForward ()			{ return forward;	}
-	public Student2Node getBack ()				{ return back;		}
+	String getName ()					{ return name;		}
+	int getID ()							{ return id;		}
+	int getAge ()						{ return age;		}
+	double getGPA ()						{ return gpa;		}
+	Student2Node getForward ()			{ return forward;	}
+	Student2Node getBack ()				{ return back;		}
 
-	public void setName (String n)				{ name    = n;		}
-	public void setID (int ID)			 		{ id      = ID;		}
-	public void setAgee (int a)					{ age     = a;		}
-	public void setGOA (double g)				{ gpa     = g;		}
-	public void setForward (Student2Node f)		{ forward = f; 		}
-	public void setBack (Student2Node b)		{ back    = b;		}
+	void setName (String n)				{ name    = n;		}
+	void setID (int ID)			 		{ id      = ID;		}
+	void setAge (int a)					{ age     = a;		}
+	void setGPA (double g)				{ gpa     = g;		}
+	void setForward (Student2Node f)		{ forward = f; 		}
+	void setBack (Student2Node b)		{ back    = b;		}
+
+	public String toString() {
+		return String.format("%-16d%-23s%-12d %2.3f", id, name, age, gpa);
+	}
 }
 
 class DoubleList {
 	Student2Node front, back;
 	DecimalFormat output;
    
-	public DoubleList() {
+	DoubleList() {
 		front = back = null;       
 		output  = new DecimalFormat("0.000");		   
 	}
 
-	public void getList() throws IOException {
+	void getList() throws IOException {
 		FileReader inFile = new FileReader("students2.dat");	
 		BufferedReader inStream = new BufferedReader(inFile);	     
 		String s1,s2,s3,s4;
@@ -105,7 +104,7 @@ class DoubleList {
 	}
       
     private void insert(Student2Node newStudent) {
-		Student2Node t1 = null, t2 = null;
+		Student2Node t1, t2 = null;
     	if(front == null) {
     		front = back = newStudent;
 		} else if(newStudent.getGPA() < front.getGPA()) {
@@ -122,56 +121,89 @@ class DoubleList {
 			newStudent.setForward(t1);
 			newStudent.setBack(t2);
 			if(t1 != null) t1.setBack(newStudent);
+			if(newStudent.getForward() == null) back = newStudent;
 		}
-    	
-    }
+	}
         	
-	public void displayAll() {
+	void displayAll() {
 		System.out.println("\nDISPLAYING ALL STUDENTS");
 		System.out.println("\nStudent ID#     Student Name            Age         GPA");
 		System.out.println("============================================================");
 		Student2Node t1 = back;
 		while(t1 != null) {
-			System.out.printf("%-16d%-23s%-12d %2.3f\n", t1.getID(), t1.getName(), t1.getAge(), t1.getGPA());
+			System.out.println(t1);
 			t1 = t1.getBack();
 		}
 	}	
 	
-	public void displayHonorRoll() { //WIP
+	void displayHonorRoll() {
 		System.out.println("\nDISPLAYING HONOR ROLL STUDENTS");
 		System.out.println("\nStudent ID#     Student Name            Age         GPA");
 		System.out.println("============================================================");
 		Student2Node t1 = back;
-
+		while(t1!= null && t1.getGPA() >= 3.5) {
+			System.out.printf("%-16d%-23s%-12d %2.3f\n", t1.getID(), t1.getName(), t1.getAge(), t1.getGPA());
+			t1 = t1.getBack();
+		}
 
 	}	   
 		
-	public void displayAcademicProbation() {
+	void displayAcademicProbation() {
 		System.out.println("\nDISPLAYING ACADEMIC PROBATION STUDENTS");
 		System.out.println("\nStudent ID#     Student Name            Age         GPA");
 		System.out.println("============================================================");
-		     
+		Student2Node t1 = front;
+		while(t1 != null && t1.getGPA() < 2.000) {
+			System.out.printf("%-16d%-23s%-12d %2.3f\n", t1.getID(), t1.getName(), t1.getAge(), t1.getGPA());
+			t1 = t1.getForward();
+		}
 
 	}	
 	
-	public void pause() {
+	void pause() {
 		Scanner input = new Scanner(System.in);	 
 		String dummy;
 		System.out.println("\nPress <Enter> to continue.");						
 		dummy = input.nextLine();								
 	}
 
-	public void displayStudent(Student2Node p) {
-
+	void displayStudent(Student2Node p) {
+		System.out.println("\nStudent Record for ID# " + p.getID() + "\n");
+		System.out.printf("%-6s%s\n%-6s%d\n%-6s%1.3f\n", "Name:", p.getName(), "Age:", p.getAge(), "GPA:",p.getGPA());
 	}   
 
-//	public Student2Node search(int studentID) {
-		// returns a reference to the proper Student2Node if a student with the matching ID is found
-		// returns null otherwise
+	Student2Node search(int studentID) {
+		if(front == null) return null;
+		else {
+			Student2Node p = front;
+			while(p.getForward()!=null && p.getID() != studentID) {
+				p = p.getForward();
+			}
+			return p;
+		}
 
-//	}		
+	}
 	
-	public void delete(Student2Node p) {
-
+	void delete(Student2Node p) {
+		if(front==null) {
+			return;
+		} else {
+			if(front == p) {
+				if(front.getForward() != null) front.getForward().setBack(null);
+				front.setForward(null);
+			} else {
+				Student2Node t1 = front, t2 = null;
+				boolean exists = false;
+				while(t1!=null && !exists) {
+					exists = p == t1;
+					if(!exists) {
+						t2 = t1;
+						t1 = t1.getForward();
+					}
+				}
+				t2.setForward(t1.getForward());
+				if(t1.getForward().getForward() != null) t1.getForward().getForward().setBack(t2);
+			}
+		}
 	}	
 }
