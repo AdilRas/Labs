@@ -5,23 +5,18 @@ public class binarySearch {
     }
 
     private static int binSearch(int i, int[] list) {
-        boolean found = false;
-        int max = list.length-1;
-        int min = 0;
-        int mid = 0;
-        while (!found && min <= max) {
-            mid = (max + min) / 2;
+        int lo = 0, hi = list.length-1;
+        int mid = (lo + hi)/2;
+        while(lo <= hi) {
+            mid = (lo + hi)/2;
             if(list[mid] == i) {
-                found = true;
                 return mid;
+            } else if(list[mid] < i) {
+                lo = mid+1;
             } else {
-                if(list[mid] < i) {
-                    min = mid+1;
-                } else {
-
-                }
+                hi = mid-1;
             }
         }
-        return (found?mid:-1);
+        return -1;
     }
 }
